@@ -3,9 +3,16 @@ const { Client, MessageMedia } = require('whatsapp-web.js');
 const ora = require('ora');
 const chalk  = require('chalk');
 const qrcode = require('qrcode-terminal');
+const excelJs = require('exceljs');
+const moment = require('moment');
+//const path = require('path');
+
 const SESSION_FILE_PATH = './session.json';
+
+
 let client;
 let sessionData;
+
 const withSession = () =>{
     // Si existe una sesión se carga las credenciales
     const spinner = ora(`Cargando ${chalk.yellow('Validando sesión con Whatsapp...')}`);
@@ -68,6 +75,7 @@ const listenMessage = () =>{
                 sendMedia(from,'dbz.PNG')
                 break;
         }
+        saveHistorial(from,body);
         console.log(body);
     })
 }
@@ -81,4 +89,46 @@ const sendMedia = (to,file) =>{
 const sendMessage = (to,message) => {
     client.sendMessage(to, message)
 }
+
+const saveHistorial = (number, message) =>{
+    const pathChat = `./chats/${number}.xlsx`;
+    const worbook = new excelJs.Workbook();
+    const today = moment().format('DD-MM-YYYY hh:mm');
+
+    if (fs.existsSync(pathChat)) {
+        //Lee el archivo q esta creado y agrega los mensajes
+        worbook.xlsx.readFile(pathChat)
+        .then(()=>{
+            const worksheet = worbook.getWorksheet(1);
+            const lastRow = worksheet.lastRow;
+            let getRowInsert = worksheet.getRow(++(lastRow.number));
+            getRowInsert.getCell('A').value = today;
+            getRowInsert.getCell('B').value = message;
+            getRowInsert.commit();
+            worbook.xlsx.writeFile(pathChat)
+            .then(()=>{
+                console.log('Se agrego el chat')
+            })
+            .catch(()=>{
+                console.log('fallo xd')
+            })
+        })
+    }else{
+        const worksheet = worbook.addWorksheet('Chats');
+        worksheet.columns = [
+            {header: 'Fecha', key:'date'},
+            {header: 'Mensaje', key: 'message'},
+        ]
+        worksheet.addRow([today,message])
+        worbook.xlsx.writeFile(pathChat)
+        .then(()=>{
+            console.log('Chat creado')
+        })
+        .catch(()=>{
+            console.log('fallo xd')
+        })
+        //Se crea el archivo
+    }
+}
+
 (fs.existsSync(SESSION_FILE_PATH)) ? withSession():withOutSession();
