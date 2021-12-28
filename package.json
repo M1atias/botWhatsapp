@@ -1,0 +1,21 @@
+{
+  "name": "botwhatsapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M1atias/botWhatsapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/M1atias/botWhatsapp/issues"
+  },
+  "homepage": "https://github.com/M1atias/botWhatsapp#readme"
+}
