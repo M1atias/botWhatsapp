@@ -52,10 +52,24 @@ const listenMessage = () =>{
     client.on('message', (msg) =>{
         console.log(msg)
         const {from, to, body} = msg;
-        console.log(from, to, body);
-        sendMessage(from, 'test !!')
+
+        /**
+         * Preguntas
+         */
+        switch(body){
+            case 'quiero info':
+                sendMessage(from, 'Info de que ?? Strange Fruits ó M°aneskin')
+                break
+            case 'adios':
+                sendMessage(from, 'Chau !!! xd')
+                break
+        }
+        console.log(body);
     })
 }
+
+
+
 const sendMessage = (to,message) => {
     client.sendMessage(to, message)
 }
