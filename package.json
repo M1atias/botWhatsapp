@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/M1atias/botWhatsapp/issues"
   },
-  "homepage": "https://github.com/M1atias/botWhatsapp#readme"
+  "homepage": "https://github.com/M1atias/botWhatsapp#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "exceljs": "^4.2.1",
+    "express": "^4.17.1",
+    "mime-db": "^1.46.0",
+    "moment": "^2.29.1",
+    "ora": "^5.4.0",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.12.5"
+  }
 }
