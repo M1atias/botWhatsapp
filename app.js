@@ -64,7 +64,7 @@ const listenMessage = () =>{
          * Preguntas
          */
         switch(body){
-            case 'quiero info':
+            case 'info':
                 sendMessage(from, 'Info de que ?? Strange Fruits ó M°aneskin')
                 break;
             case 'adios':
