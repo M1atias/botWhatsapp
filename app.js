@@ -6,6 +6,7 @@ const chalk  = require('chalk');
 const qrcode = require('qrcode-terminal');
 const excelJs = require('exceljs');
 const moment = require('moment');
+const cors = require('cors');
 //const path = require('path');
 
 const SESSION_FILE_PATH = './session.json';
@@ -14,14 +15,18 @@ const app = express();
 let client;
 let sessionData;
 
-app.use(express.urlencoded({extended:true}))
+app.use(cors());
+app.use(express.urlencoded({extended:true}));
 
 
 
 
 const sendWithApi = (req,res) =>{
     const {message,to} = req.body;
+    const newNumbew = `${to}@c.us`
     console.log(message,to);
+
+    sendMessage(newNumbew,message)
     res.send({status:'Enviado'})
 }
 
