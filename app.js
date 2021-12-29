@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { Client, MessageMedia } = require('whatsapp-web.js');
+const express = require('express');
 const ora = require('ora');
 const chalk  = require('chalk');
 const qrcode = require('qrcode-terminal');
@@ -8,10 +9,23 @@ const moment = require('moment');
 //const path = require('path');
 
 const SESSION_FILE_PATH = './session.json';
-
+const app = express();
 
 let client;
 let sessionData;
+
+app.use(express.urlencoded({extended:true}))
+
+
+
+
+const sendWithApi = (req,res) =>{
+    const {message,to} = req.body;
+    console.log(message,to);
+    res.send({status:'Enviado'})
+}
+
+app.post('/send',sendWithApi)
 
 const withSession = () =>{
     // Si existe una sesión se carga las credenciales
@@ -132,3 +146,7 @@ const saveHistorial = (number, message) =>{
 }
 
 (fs.existsSync(SESSION_FILE_PATH)) ? withSession():withOutSession();
+
+app.listen(9000,()=>{
+    console.log('API ok')
+})
