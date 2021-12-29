@@ -7,6 +7,7 @@ const qrcode = require('qrcode-terminal');
 const excelJs = require('exceljs');
 const moment = require('moment');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 //const path = require('path');
 
 const SESSION_FILE_PATH = './session.json';
@@ -16,7 +17,15 @@ let client;
 let sessionData;
 
 app.use(cors());
-app.use(express.urlencoded({extended:true}));
+//app.use(express.urlencoded({extended:true}));
+
+app.use(
+    bodyParser.json()
+)
+
+app.use(
+    bodyParser.urlencoded({extended:true})
+)
 
 
 
